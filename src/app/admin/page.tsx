@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import { useDashboard, useUpdateDashboard } from "@/hooks/use-dashboard";
+import { useDashboard, useUpdateDashboard, DashboardData } from "@/hooks/use-dashboard";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,7 +12,7 @@ function AdminPanelContent() {
   const updateDashboard = useUpdateDashboard();
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
 
-  const handleUpdate = async (updates: any) => {
+  const handleUpdate = async (updates: Partial<DashboardData>) => {
     try {
       await updateDashboard.mutateAsync({ ...data, ...updates });
       setLastSaved(new Date());
@@ -21,13 +21,13 @@ function AdminPanelContent() {
     }
   };
 
-  const handleInputChange = (field: string, value: any) => {
+  const handleInputChange = (field: keyof DashboardData, value: number) => {
     const updates = { [field]: value };
     handleUpdate(updates);
   };
 
-  const handleNestedInputChange = (parentField: string, childField: string, value: any) => {
-    const currentValue = data?.[parentField as keyof typeof data] as Record<string, any>;
+  const handleNestedInputChange = (parentField: keyof DashboardData, childField: string, value: number) => {
+    const currentValue = data?.[parentField] as Record<string, number>;
     const updates = {
       [parentField]: {
         ...currentValue,
@@ -37,11 +37,11 @@ function AdminPanelContent() {
     handleUpdate(updates);
   };
 
-  const handleArrayItemChange = (field: string, index: number, itemField: string, value: any) => {
-    const currentArray = data?.[field as keyof typeof data] as any[];
+  const handleArrayItemChange = (field: keyof DashboardData, index: number, itemField: string, value: string | number) => {
+    const currentArray = data?.[field] as Array<Record<string, string | number>>;
     const updatedArray = [...currentArray];
     updatedArray[index] = { ...updatedArray[index], [itemField]: value };
-    handleUpdate({ [field]: updatedArray });
+    handleUpdate({ [field]: updatedArray } as Partial<DashboardData>);
   };
 
   const addSpendingItem = () => {

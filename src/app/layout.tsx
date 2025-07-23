@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Inter, Orbitron } from "next/font/google";
+import Link from "next/link";
 import { QueryProvider } from "@/components/providers/query-provider";
 import "./globals.css";
 
@@ -51,18 +52,18 @@ export default function RootLayout({
                 </h1>
               </div>
               <nav className="flex gap-4">
-                <a 
+                <Link 
                   href="/" 
                   className="px-4 py-2 rounded-lg border border-dpa-green/30 text-dpa-cyan hover:bg-dpa-green/20 transition-colors font-orbitron"
                 >
                   Dashboard
-                </a>
-                <a 
+                </Link>
+                <Link 
                   href="/admin" 
                   className="px-4 py-2 rounded-lg border border-dpa-green/30 text-dpa-cyan hover:bg-dpa-green/20 transition-colors font-orbitron"
                 >
                   Admin
-                </a>
+                </Link>
               </nav>
             </div>
           </header>
