@@ -1,8 +1,8 @@
-# DPA Command Center
+# DPA Command Center 🚀
 
-> **Status**: ✅ Ready for deployment - All Vercel build errors resolved!
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/dallyp22/DPA_Dash)
 
-A real-time business intelligence dashboard for DPA operations, built with Next.js 14, TypeScript, Tailwind CSS, and Shadcn UI.
+A high-tech command center dashboard built with Next.js 14, featuring real-time data visualization and administrative controls.
 
 ## Features
 
