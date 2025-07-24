@@ -13,7 +13,6 @@ export default function YtdCard({ ytd }: YtdCardProps) {
   const expenseRatio = ytd.revenue > 0 ? (ytd.expenses / ytd.revenue) * 100 : 0;
   
   // Determine profit status
-  const profitStatus = profit >= 0 ? 'positive' : 'negative';
   const marginStatus = profitMargin >= 40 ? 'excellent' : profitMargin >= 20 ? 'good' : profitMargin >= 0 ? 'poor' : 'negative';
 
   const statusConfig = {

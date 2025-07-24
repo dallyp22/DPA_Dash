@@ -11,8 +11,6 @@ interface RevenueCardProps {
 
 export default function RevenueCard({ target, current, milestones }: RevenueCardProps) {
   const progress = (current / target) * 100;
-  const cashProgress = (milestones.cash / target) * 100;
-  const escrowProgress = (milestones.escrow / target) * 100;
   
   // Calculate the circumference for the circular progress
   const radius = 45;
