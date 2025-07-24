@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { PrismaClient } from "@prisma/client";
 
-// Fallback data matching the DashboardData interface
+// Initialize Prisma client
+const prisma = new PrismaClient();
+
+// Fallback data if database is not available
 const fallbackData = {
   revenueTarget: 500000,
   revenueCurrent: 287500,
@@ -29,11 +33,22 @@ const fallbackData = {
 
 export async function GET() {
   try {
-    // Always use fallback data for server-side rendering
-    // Client-side will use localStorage for persistence
-    return NextResponse.json(fallbackData);
+    // Try to get data from database
+    const dashboard = await prisma.dashboard.findFirst();
+    
+    if (dashboard) {
+      return NextResponse.json(dashboard.data);
+    } else {
+      // If no data exists, create initial data
+      const newDashboard = await prisma.dashboard.create({
+        data: {
+          data: fallbackData
+        }
+      });
+      return NextResponse.json(newDashboard.data);
+    }
   } catch (error) {
-    console.error("Error fetching dashboard data:", error);
+    console.error("Database error, using fallback data:", error);
     return NextResponse.json(fallbackData);
   }
 }
@@ -41,13 +56,22 @@ export async function GET() {
 export async function PATCH(req: NextRequest) {
   try {
     const body = await req.json();
-    // Log the update for debugging
-    console.log("Dashboard update received:", body);
     
-    // Return success - the client will handle localStorage persistence
+    // Update or create dashboard data
+    const dashboard = await prisma.dashboard.upsert({
+      where: { id: 1 },
+      update: {
+        data: body
+      },
+      create: {
+        data: body
+      }
+    });
+    
     return NextResponse.json({ 
       ok: true, 
-      message: "Update received - changes will be saved to localStorage on the client side" 
+      message: "Dashboard data updated successfully",
+      data: dashboard.data
     });
   } catch (error) {
     console.error("Error updating dashboard data:", error);
