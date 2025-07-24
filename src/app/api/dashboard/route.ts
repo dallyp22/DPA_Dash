@@ -30,40 +30,42 @@ const fallbackData = {
 // In-memory storage for when database is not available
 let inMemoryData = { ...fallbackData };
 
-// Try to initialize Prisma, but fall back gracefully if it fails
-let prisma: any = null;
-try {
-  if (process.env.DATABASE_URL && process.env.DATABASE_URL.trim() !== "") {
-    const { PrismaClient } = require("@prisma/client");
-    prisma = new PrismaClient();
-  }
-} catch (error) {
-  console.log("Database not available, using in-memory storage");
-}
+// Check if database is available
+const isDatabaseAvailable = process.env.DATABASE_URL && process.env.DATABASE_URL.trim() !== "";
 
 export async function GET() {
   try {
-    if (prisma) {
-      // Try to get data from database
-      const dashboard = await prisma.dashboard.findFirst();
-      
-      if (dashboard) {
-        return NextResponse.json(dashboard.data);
-      } else {
-        // If no data exists, create initial data
-        const newDashboard = await prisma.dashboard.create({
-          data: {
-            data: fallbackData
-          }
-        });
-        return NextResponse.json(newDashboard.data);
+    if (isDatabaseAvailable) {
+      // Try to use database
+      try {
+        const { PrismaClient } = await import("@prisma/client");
+        const prisma = new PrismaClient();
+        
+        const dashboard = await prisma.dashboard.findFirst();
+        
+        if (dashboard) {
+          await prisma.$disconnect();
+          return NextResponse.json(dashboard.data);
+        } else {
+          // If no data exists, create initial data
+          const newDashboard = await prisma.dashboard.create({
+            data: {
+              data: fallbackData
+            }
+          });
+          await prisma.$disconnect();
+          return NextResponse.json(newDashboard.data);
+        }
+      } catch (dbError) {
+        console.log("Database error, using in-memory storage:", dbError);
+        return NextResponse.json(inMemoryData);
       }
     } else {
       // Use in-memory data
       return NextResponse.json(inMemoryData);
     }
   } catch (error) {
-    console.error("Database error, using in-memory data:", error);
+    console.error("Error fetching dashboard data:", error);
     return NextResponse.json(inMemoryData);
   }
 }
@@ -72,23 +74,40 @@ export async function PATCH(req: NextRequest) {
   try {
     const body = await req.json();
     
-    if (prisma) {
-      // Update or create dashboard data in database
-      const dashboard = await prisma.dashboard.upsert({
-        where: { id: 1 },
-        update: {
-          data: body
-        },
-        create: {
-          data: body
-        }
-      });
-      
-      return NextResponse.json({ 
-        ok: true, 
-        message: "Dashboard data updated successfully in database",
-        data: dashboard.data
-      });
+    if (isDatabaseAvailable) {
+      // Try to use database
+      try {
+        const { PrismaClient } = await import("@prisma/client");
+        const prisma = new PrismaClient();
+        
+        // Update or create dashboard data in database
+        const dashboard = await prisma.dashboard.upsert({
+          where: { id: 1 },
+          update: {
+            data: body
+          },
+          create: {
+            data: body
+          }
+        });
+        
+        await prisma.$disconnect();
+        
+        return NextResponse.json({ 
+          ok: true, 
+          message: "Dashboard data updated successfully in database",
+          data: dashboard.data
+        });
+      } catch (dbError) {
+        console.log("Database error, using in-memory storage:", dbError);
+        // Fall back to in-memory
+        inMemoryData = body;
+        return NextResponse.json({ 
+          ok: true, 
+          message: "Dashboard data updated successfully in memory",
+          data: inMemoryData
+        });
+      }
     } else {
       // Update in-memory data
       inMemoryData = body;
