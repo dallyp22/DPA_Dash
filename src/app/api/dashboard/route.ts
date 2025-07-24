@@ -1,8 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-// Initialize Prisma client
-const prisma = new PrismaClient();
 
 // Fallback data if database is not available
 const fallbackData = {
@@ -31,25 +27,44 @@ const fallbackData = {
   ]
 };
 
+// In-memory storage for when database is not available
+let inMemoryData = { ...fallbackData };
+
+// Try to initialize Prisma, but fall back gracefully if it fails
+let prisma: any = null;
+try {
+  if (process.env.DATABASE_URL && process.env.DATABASE_URL.trim() !== "") {
+    const { PrismaClient } = require("@prisma/client");
+    prisma = new PrismaClient();
+  }
+} catch (error) {
+  console.log("Database not available, using in-memory storage");
+}
+
 export async function GET() {
   try {
-    // Try to get data from database
-    const dashboard = await prisma.dashboard.findFirst();
-    
-    if (dashboard) {
-      return NextResponse.json(dashboard.data);
+    if (prisma) {
+      // Try to get data from database
+      const dashboard = await prisma.dashboard.findFirst();
+      
+      if (dashboard) {
+        return NextResponse.json(dashboard.data);
+      } else {
+        // If no data exists, create initial data
+        const newDashboard = await prisma.dashboard.create({
+          data: {
+            data: fallbackData
+          }
+        });
+        return NextResponse.json(newDashboard.data);
+      }
     } else {
-      // If no data exists, create initial data
-      const newDashboard = await prisma.dashboard.create({
-        data: {
-          data: fallbackData
-        }
-      });
-      return NextResponse.json(newDashboard.data);
+      // Use in-memory data
+      return NextResponse.json(inMemoryData);
     }
   } catch (error) {
-    console.error("Database error, using fallback data:", error);
-    return NextResponse.json(fallbackData);
+    console.error("Database error, using in-memory data:", error);
+    return NextResponse.json(inMemoryData);
   }
 }
 
@@ -57,22 +72,32 @@ export async function PATCH(req: NextRequest) {
   try {
     const body = await req.json();
     
-    // Update or create dashboard data
-    const dashboard = await prisma.dashboard.upsert({
-      where: { id: 1 },
-      update: {
-        data: body
-      },
-      create: {
-        data: body
-      }
-    });
-    
-    return NextResponse.json({ 
-      ok: true, 
-      message: "Dashboard data updated successfully",
-      data: dashboard.data
-    });
+    if (prisma) {
+      // Update or create dashboard data in database
+      const dashboard = await prisma.dashboard.upsert({
+        where: { id: 1 },
+        update: {
+          data: body
+        },
+        create: {
+          data: body
+        }
+      });
+      
+      return NextResponse.json({ 
+        ok: true, 
+        message: "Dashboard data updated successfully in database",
+        data: dashboard.data
+      });
+    } else {
+      // Update in-memory data
+      inMemoryData = body;
+      return NextResponse.json({ 
+        ok: true, 
+        message: "Dashboard data updated successfully in memory",
+        data: inMemoryData
+      });
+    }
   } catch (error) {
     console.error("Error updating dashboard data:", error);
     return NextResponse.json({ error: "Failed to update data" }, { status: 500 });
