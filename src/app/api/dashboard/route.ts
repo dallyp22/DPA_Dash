@@ -1,7 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-const db = new PrismaClient();
 
 // Fallback data if database is not available
 const fallbackData = {
@@ -35,11 +32,27 @@ const fallbackData = {
   ]
 };
 
+// Try to initialize Prisma, but fall back gracefully if it fails
+let db: any = null;
+try {
+  if (process.env.DATABASE_URL && process.env.DATABASE_URL.trim() !== "") {
+    const { PrismaClient } = require("@prisma/client");
+    db = new PrismaClient();
+  }
+} catch (error) {
+  console.log("Database not available, using fallback data");
+}
+
 export async function GET() {
   try {
-    // Try database first
-    const dash = await db.dashboard.findUnique({ where: { id: 1 } });
-    return NextResponse.json(dash?.data ?? fallbackData);
+    if (db) {
+      // Try database first
+      const dash = await db.dashboard.findUnique({ where: { id: 1 } });
+      return NextResponse.json(dash?.data ?? fallbackData);
+    } else {
+      // Use fallback data
+      return NextResponse.json(fallbackData);
+    }
   } catch (error) {
     console.error("Database error, using fallback data:", error);
     // Return fallback data if database fails
@@ -50,11 +63,18 @@ export async function GET() {
 export async function PATCH(req: NextRequest) {
   try {
     const body = await req.json();
-    await db.dashboard.update({ 
-      where: { id: 1 }, 
-      data: { data: body } 
-    });
-    return NextResponse.json({ ok: true });
+    
+    if (db) {
+      await db.dashboard.update({ 
+        where: { id: 1 }, 
+        data: { data: body } 
+      });
+      return NextResponse.json({ ok: true });
+    } else {
+      // Simulate success but don't persist changes
+      console.log("Database not available - changes not persisted");
+      return NextResponse.json({ ok: true, warning: "Changes not persisted - database not connected" });
+    }
   } catch (error) {
     console.error("Error updating dashboard data:", error);
     return NextResponse.json({ error: "Failed to update data" }, { status: 500 });
