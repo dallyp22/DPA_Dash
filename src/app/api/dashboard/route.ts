@@ -1,34 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// Fallback data if database is not available
+// Fallback data matching the DashboardData interface
 const fallbackData = {
-  revenue: {
-    target: 500000,
-    current: 287500,
-    milestones: [
-      { name: "Q1 Target", target: 125000, current: 125000, completed: true },
-      { name: "Q2 Target", target: 250000, current: 162500, completed: false },
-      { name: "Q3 Target", target: 375000, current: 0, completed: false },
-      { name: "Q4 Target", target: 500000, current: 0, completed: false }
-    ]
+  revenueTarget: 500000,
+  revenueCurrent: 287500,
+  milestones: {
+    cash: 150000,
+    escrow: 137500
   },
   outsideSpending: [
-    { name: "Marketing", budget: 50000, spent: 28750, remaining: 21250 },
-    { name: "Software Licenses", budget: 25000, spent: 22100, remaining: 2900 },
-    { name: "Professional Services", budget: 75000, spent: 45300, remaining: 29700 },
-    { name: "Equipment", budget: 30000, spent: 18600, remaining: 11400 }
+    { label: "Marketing", amount: 28750 },
+    { label: "Software Licenses", amount: 22100 },
+    { label: "Professional Services", amount: 45300 },
+    { label: "Equipment", amount: 18600 }
   ],
   ytd: {
     revenue: 287500,
-    expenses: 114750,
-    profit: 172750
+    expenses: 114750
   },
   goals: [
-    { name: "Increase market share by 15%", status: "in-progress", progress: 65 },
-    { name: "Launch new product line", status: "completed", progress: 100 },
-    { name: "Reduce operational costs by 10%", status: "in-progress", progress: 40 },
-    { name: "Expand to 3 new markets", status: "pending", progress: 15 },
-    { name: "Achieve 95% customer satisfaction", status: "in-progress", progress: 88 }
+    { goal: "Increase market share by 15%", status: "in-progress" as const },
+    { goal: "Launch new product line", status: "completed" as const },
+    { goal: "Reduce operational costs by 10%", status: "in-progress" as const },
+    { goal: "Expand to 3 new markets", status: "pending" as const },
+    { goal: "Achieve 95% customer satisfaction", status: "in-progress" as const }
   ]
 };
 
