@@ -29,7 +29,8 @@ const fallbackData = {
 
 export async function GET() {
   try {
-    // Always use fallback data for now (no database dependency)
+    // Always use fallback data for server-side rendering
+    // Client-side will use localStorage for persistence
     return NextResponse.json(fallbackData);
   } catch (error) {
     console.error("Error fetching dashboard data:", error);
@@ -40,9 +41,14 @@ export async function GET() {
 export async function PATCH(req: NextRequest) {
   try {
     const body = await req.json();
-    // Simulate success but don't persist changes (no database)
+    // Log the update for debugging
     console.log("Dashboard update received:", body);
-    return NextResponse.json({ ok: true, warning: "Changes not persisted - database not connected" });
+    
+    // Return success - the client will handle localStorage persistence
+    return NextResponse.json({ 
+      ok: true, 
+      message: "Update received - changes will be saved to localStorage on the client side" 
+    });
   } catch (error) {
     console.error("Error updating dashboard data:", error);
     return NextResponse.json({ error: "Failed to update data" }, { status: 500 });

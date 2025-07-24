@@ -14,7 +14,8 @@ function AdminPanelContent() {
 
   const handleUpdate = async (updates: Partial<DashboardData>) => {
     try {
-      await updateDashboard.mutateAsync({ ...data, ...updates });
+      const updatedData = { ...data, ...updates } as DashboardData;
+      await updateDashboard.mutateAsync(updatedData);
       setLastSaved(new Date());
     } catch (error) {
       console.error('Failed to update:', error);
