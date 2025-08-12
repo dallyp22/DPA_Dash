@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useState, useCallback, useEffect, useRef } from "react";
 import { useDashboard, useUpdateDashboard, DashboardData } from "@/hooks/use-dashboard";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,61 +11,124 @@ function AdminPanelContent() {
   const { data, isLoading } = useDashboard();
   const updateDashboard = useUpdateDashboard();
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
+  const [localData, setLocalData] = useState<DashboardData | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleUpdate = async (updates: Partial<DashboardData>) => {
+  // Initialize local data when server data loads
+  useEffect(() => {
+    if (data && !localData) {
+      setLocalData(data);
+    }
+  }, [data, localData]);
+
+  // Debounced save function
+  const debouncedSave = useCallback(async (dataToSave: DashboardData) => {
     try {
-      const updatedData = { ...data, ...updates } as DashboardData;
-      await updateDashboard.mutateAsync(updatedData);
+      setIsSaving(true);
+      await updateDashboard.mutateAsync(dataToSave);
       setLastSaved(new Date());
     } catch (error) {
       console.error('Failed to update:', error);
+      // Revert to server data on error
+      if (data) {
+        setLocalData(data);
+      }
+    } finally {
+      setIsSaving(false);
     }
-  };
+  }, [updateDashboard, data]);
 
-  const handleInputChange = (field: keyof DashboardData, value: number) => {
+  // Update local state and schedule save
+  const scheduleUpdate = useCallback((updates: Partial<DashboardData>) => {
+    if (!localData) return;
+
+    const updatedData = { ...localData, ...updates } as DashboardData;
+    setLocalData(updatedData);
+
+    // Clear existing timeout
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
+    }
+
+    // Schedule save after 1 second of inactivity
+    saveTimeoutRef.current = setTimeout(() => {
+      debouncedSave(updatedData);
+    }, 1000);
+  }, [localData, debouncedSave]);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleInputChange = useCallback((field: keyof DashboardData, value: number) => {
     const updates = { [field]: value };
-    handleUpdate(updates);
-  };
+    scheduleUpdate(updates);
+  }, [scheduleUpdate]);
 
-  const handleNestedInputChange = (parentField: keyof DashboardData, childField: string, value: number) => {
-    const currentValue = data?.[parentField] as Record<string, number>;
+  const handleNestedInputChange = useCallback((parentField: keyof DashboardData, childField: string, value: number) => {
+    if (!localData) return;
+    const currentValue = localData[parentField] as Record<string, number>;
     const updates = {
       [parentField]: {
         ...currentValue,
         [childField]: value
       }
     };
-    handleUpdate(updates);
-  };
+    scheduleUpdate(updates);
+  }, [localData, scheduleUpdate]);
 
-  const handleArrayItemChange = (field: keyof DashboardData, index: number, itemField: string, value: string | number) => {
-    const currentArray = data?.[field] as Array<Record<string, string | number>>;
+  const handleArrayItemChange = useCallback((field: keyof DashboardData, index: number, itemField: string, value: string | number) => {
+    if (!localData) return;
+    const currentArray = localData[field] as Array<Record<string, string | number>>;
     const updatedArray = [...currentArray];
     updatedArray[index] = { ...updatedArray[index], [itemField]: value };
-    handleUpdate({ [field]: updatedArray } as Partial<DashboardData>);
-  };
+    scheduleUpdate({ [field]: updatedArray } as Partial<DashboardData>);
+  }, [localData, scheduleUpdate]);
 
-  const addSpendingItem = () => {
+  const addSpendingItem = useCallback(() => {
+    if (!localData) return;
     const newItem = { label: "New Item", amount: 0 };
-    const updatedSpending = [...(data?.outsideSpending || []), newItem];
-    handleUpdate({ outsideSpending: updatedSpending });
-  };
+    const updatedSpending = [...(localData.outsideSpending || []), newItem];
+    scheduleUpdate({ outsideSpending: updatedSpending });
+  }, [localData, scheduleUpdate]);
 
-  const removeSpendingItem = (index: number) => {
-    const updatedSpending = data?.outsideSpending.filter((_, i) => i !== index) || [];
-    handleUpdate({ outsideSpending: updatedSpending });
-  };
+  const removeSpendingItem = useCallback((index: number) => {
+    if (!localData) return;
+    const updatedSpending = localData.outsideSpending.filter((_, i) => i !== index) || [];
+    scheduleUpdate({ outsideSpending: updatedSpending });
+  }, [localData, scheduleUpdate]);
 
-  const addGoal = () => {
+  const addGoal = useCallback(() => {
+    if (!localData) return;
     const newGoal = { goal: "New Goal", status: "pending" as const };
-    const updatedGoals = [...(data?.goals || []), newGoal];
-    handleUpdate({ goals: updatedGoals });
-  };
+    const updatedGoals = [...(localData.goals || []), newGoal];
+    scheduleUpdate({ goals: updatedGoals });
+  }, [localData, scheduleUpdate]);
 
-  const removeGoal = (index: number) => {
-    const updatedGoals = data?.goals.filter((_, i) => i !== index) || [];
-    handleUpdate({ goals: updatedGoals });
-  };
+  const removeGoal = useCallback((index: number) => {
+    if (!localData) return;
+    const updatedGoals = localData.goals.filter((_, i) => i !== index) || [];
+    scheduleUpdate({ goals: updatedGoals });
+  }, [localData, scheduleUpdate]);
+
+  // Manual save function
+  const handleManualSave = useCallback(async () => {
+    if (!localData) return;
+    
+    // Clear any pending debounced save
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
+      saveTimeoutRef.current = null;
+    }
+    
+    await debouncedSave(localData);
+  }, [localData, debouncedSave]);
 
   if (isLoading) {
     return (
@@ -78,7 +141,7 @@ function AdminPanelContent() {
     );
   }
 
-  if (!data) return <div>No data available</div>;
+  if (!localData) return <div>No data available</div>;
 
   return (
     <div className="space-y-6">
@@ -87,11 +150,37 @@ function AdminPanelContent() {
         <h1 className="font-orbitron text-3xl font-bold text-white">
           Admin Panel
         </h1>
-        {lastSaved && (
-          <p className="text-dpa-cyan text-sm">
-            Last saved: {lastSaved.toLocaleTimeString()}
-          </p>
-        )}
+        <div className="flex items-center gap-4">
+          {/* Save Status */}
+          <div className="flex items-center gap-2">
+            {isSaving && (
+              <div className="flex items-center gap-2 text-dpa-cyan">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-dpa-cyan"></div>
+                <span className="text-sm">Saving...</span>
+              </div>
+            )}
+            {saveTimeoutRef.current && !isSaving && (
+              <div className="flex items-center gap-2 text-yellow-400">
+                <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                <span className="text-sm">Changes pending...</span>
+              </div>
+            )}
+            {lastSaved && !saveTimeoutRef.current && !isSaving && (
+              <p className="text-dpa-green text-sm">
+                ✓ Saved: {lastSaved.toLocaleTimeString()}
+              </p>
+            )}
+          </div>
+          
+          {/* Manual Save Button */}
+          <Button 
+            onClick={handleManualSave}
+            disabled={isSaving}
+            className="bg-dpa-green hover:bg-dpa-green/80 text-white"
+          >
+            {isSaving ? 'Saving...' : 'Save Now'}
+          </Button>
+        </div>
       </div>
 
       {/* Revenue Settings */}
@@ -105,7 +194,7 @@ function AdminPanelContent() {
             <Input
               id="revenueTarget"
               type="number"
-              value={data.revenueTarget}
+              value={localData.revenueTarget}
               onChange={(e) => handleInputChange('revenueTarget', Number(e.target.value))}
               className="bg-dpa-dark-pine border-dpa-green/30 text-white"
             />
@@ -115,7 +204,7 @@ function AdminPanelContent() {
             <Input
               id="revenueCurrent"
               type="number"
-              value={data.revenueCurrent}
+              value={localData.revenueCurrent}
               onChange={(e) => handleInputChange('revenueCurrent', Number(e.target.value))}
               className="bg-dpa-dark-pine border-dpa-green/30 text-white"
             />
@@ -125,7 +214,7 @@ function AdminPanelContent() {
             <Input
               id="milestoneCash"
               type="number"
-              value={data.milestones.cash}
+              value={localData.milestones.cash}
               onChange={(e) => handleNestedInputChange('milestones', 'cash', Number(e.target.value))}
               className="bg-dpa-dark-pine border-dpa-green/30 text-white"
             />
@@ -135,7 +224,7 @@ function AdminPanelContent() {
             <Input
               id="milestoneEscrow"
               type="number"
-              value={data.milestones.escrow}
+              value={localData.milestones.escrow}
               onChange={(e) => handleNestedInputChange('milestones', 'escrow', Number(e.target.value))}
               className="bg-dpa-dark-pine border-dpa-green/30 text-white"
             />
@@ -154,7 +243,7 @@ function AdminPanelContent() {
             <Input
               id="ytdRevenue"
               type="number"
-              value={data.ytd.revenue}
+              value={localData.ytd.revenue}
               onChange={(e) => handleNestedInputChange('ytd', 'revenue', Number(e.target.value))}
               className="bg-dpa-dark-pine border-dpa-green/30 text-white"
             />
@@ -164,7 +253,7 @@ function AdminPanelContent() {
             <Input
               id="ytdExpenses"
               type="number"
-              value={data.ytd.expenses}
+              value={localData.ytd.expenses}
               onChange={(e) => handleNestedInputChange('ytd', 'expenses', Number(e.target.value))}
               className="bg-dpa-dark-pine border-dpa-green/30 text-white"
             />
@@ -183,7 +272,7 @@ function AdminPanelContent() {
           </Button>
         </div>
         <div className="space-y-3">
-          {data.outsideSpending.map((item, index) => (
+          {localData.outsideSpending.map((item, index) => (
             <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
               <div>
                 <Label className="text-gray-300">Label</Label>
@@ -225,7 +314,7 @@ function AdminPanelContent() {
           </Button>
         </div>
         <div className="space-y-3">
-          {data.goals.map((goal, index) => (
+          {localData.goals.map((goal, index) => (
             <div key={index} className="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
               <div>
                 <Label className="text-gray-300">Goal</Label>

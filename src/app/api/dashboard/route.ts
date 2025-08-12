@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
+import { z } from "zod";
 
 // Fallback data if database is not available
 const fallbackData = {
@@ -33,29 +35,53 @@ let inMemoryData = { ...fallbackData };
 // Check if database is available
 const isDatabaseAvailable = process.env.DATABASE_URL && process.env.DATABASE_URL.trim() !== "";
 
+// Validation schema for Dashboard payloads
+const dashboardSchema = z.object({
+  revenueTarget: z.number().nonnegative(),
+  revenueCurrent: z.number().nonnegative(),
+  milestones: z.object({
+    cash: z.number().nonnegative(),
+    escrow: z.number().nonnegative(),
+  }),
+  outsideSpending: z
+    .array(
+      z.object({
+        label: z.string().min(1),
+        amount: z.number().nonnegative(),
+      })
+    )
+    .default([]),
+  ytd: z.object({
+    revenue: z.number().nonnegative(),
+    expenses: z.number().nonnegative(),
+  }),
+  goals: z
+    .array(
+      z.object({
+        goal: z.string().min(1),
+        status: z.enum(["pending", "in-progress", "completed"]),
+      })
+    )
+    .default([]),
+});
+
 export async function GET() {
   try {
     if (isDatabaseAvailable) {
       // Try to use database
       try {
-        const { PrismaClient } = await import("@prisma/client");
-        const prisma = new PrismaClient();
-        
         const dashboard = await prisma.dashboard.findFirst();
-        
+
         if (dashboard) {
-          await prisma.$disconnect();
           return NextResponse.json(dashboard.data);
-        } else {
-          // If no data exists, create initial data
-          const newDashboard = await prisma.dashboard.create({
-            data: {
-              data: fallbackData
-            }
-          });
-          await prisma.$disconnect();
-          return NextResponse.json(newDashboard.data);
         }
+        // If no data exists, create initial data
+        const newDashboard = await prisma.dashboard.create({
+          data: {
+            data: fallbackData,
+          },
+        });
+        return NextResponse.json(newDashboard.data);
       } catch (dbError) {
         console.log("Database error, using in-memory storage:", dbError);
         return NextResponse.json(inMemoryData);
@@ -73,35 +99,38 @@ export async function GET() {
 export async function PATCH(req: NextRequest) {
   try {
     const body = await req.json();
+    const parseResult = dashboardSchema.safeParse(body);
+    if (!parseResult.success) {
+      return NextResponse.json(
+        { error: "Invalid payload", details: parseResult.error.flatten() },
+        { status: 400 }
+      );
+    }
+    const validData = parseResult.data;
     
     if (isDatabaseAvailable) {
       // Try to use database
       try {
-        const { PrismaClient } = await import("@prisma/client");
-        const prisma = new PrismaClient();
-        
-        // Update or create dashboard data in database
-        const dashboard = await prisma.dashboard.upsert({
-          where: { id: 1 },
-          update: {
-            data: body
-          },
-          create: {
-            data: body
-          }
-        });
-        
-        await prisma.$disconnect();
-        
-        return NextResponse.json({ 
-          ok: true, 
+        // Update existing singleton row or create if none exists
+        const existing = await prisma.dashboard.findFirst();
+        const dashboard = existing
+          ? await prisma.dashboard.update({
+              where: { id: existing.id },
+              data: { data: validData },
+            })
+          : await prisma.dashboard.create({
+              data: { data: validData },
+            });
+
+        return NextResponse.json({
+          ok: true,
           message: "Dashboard data updated successfully in database",
-          data: dashboard.data
+          data: dashboard.data,
         });
       } catch (dbError) {
         console.log("Database error, using in-memory storage:", dbError);
         // Fall back to in-memory
-        inMemoryData = body;
+        inMemoryData = validData as typeof inMemoryData;
         return NextResponse.json({ 
           ok: true, 
           message: "Dashboard data updated successfully in memory",
@@ -110,7 +139,7 @@ export async function PATCH(req: NextRequest) {
       }
     } else {
       // Update in-memory data
-      inMemoryData = body;
+      inMemoryData = validData as typeof inMemoryData;
       return NextResponse.json({ 
         ok: true, 
         message: "Dashboard data updated successfully in memory",
