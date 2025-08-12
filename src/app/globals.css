@@ -1,12 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  /* DPA Command Center Theme */
-  --dpa-dark-pine: #002B11;
-  --dpa-green: #04652A;
-  --dpa-cyan: #11C2AC;
-  --dpa-pine-light: #003d18;
-  --dpa-pine-lighter: #004d1f;
+  /* DPA Auctions Official Brand Colors */
+  --dpa-green: #0E430A;        /* DPA Green #0E430A */
+  --dpa-light-green: #567042;  /* Light Green #567042 */
+  --dpa-golden: #AE8B28;       /* Golden #AE8B28 */
+  --dpa-dark-grey: #9BA3A9;    /* Dark Grey #9BA3A9 */
+  --dpa-light-grey: #4C4F53;   /* Light Grey #4C4F53 */
+  
+  /* Legacy colors for backward compatibility */
+  --dpa-dark-pine: #0E430A;
+  --dpa-cyan: #567042;
+  --dpa-pine-light: #2a4a1a;
+  --dpa-pine-lighter: #3a5a2a;
 
   /* Base colors for light mode */
   --background: #ffffff;
@@ -32,25 +38,25 @@
 }
 
 .dark {
-  --background: #002B11;
+  --background: #0E430A;
   --foreground: #ededed;
-  --card: #003d18;
+  --card: #2a4a1a;
   --card-foreground: #ededed;
-  --popover: #003d18;
+  --popover: #2a4a1a;
   --popover-foreground: #ededed;
-  --primary: #04652A;
+  --primary: #567042;
   --primary-foreground: #ffffff;
-  --secondary: #004d1f;
+  --secondary: #3a5a2a;
   --secondary-foreground: #ededed;
-  --muted: #004d1f;
-  --muted-foreground: #a3a3a3;
-  --accent: #11C2AC;
+  --muted: #3a5a2a;
+  --muted-foreground: #9BA3A9;
+  --accent: #AE8B28;
   --accent-foreground: #ffffff;
   --destructive: #ef4444;
   --destructive-foreground: #fafafa;
-  --border: rgba(4, 101, 42, 0.3);
-  --input: rgba(4, 101, 42, 0.3);
-  --ring: #11C2AC;
+  --border: rgba(86, 112, 66, 0.3);
+  --input: rgba(86, 112, 66, 0.3);
+  --ring: #AE8B28;
 }
 
 * {
@@ -60,11 +66,20 @@
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-montserrat), 'Montserrat', Arial, Helvetica, sans-serif;
+}
+
+/* DPA Brand Typography */
+.font-montserrat {
+  font-family: var(--font-montserrat), 'Montserrat', sans-serif;
+}
+
+.font-raleway {
+  font-family: var(--font-raleway), 'Raleway', sans-serif;
 }
 
 .font-orbitron {
-  font-family: var(--font-orbitron), sans-serif;
+  font-family: var(--font-raleway), 'Raleway', sans-serif;
 }
 
 /* Command center specific styles */
@@ -73,7 +88,7 @@ body {
 }
 
 .dpa-glow {
-  box-shadow: 0 0 20px rgba(17, 194, 172, 0.3);
+  box-shadow: 0 0 20px rgba(174, 139, 40, 0.3);
 }
 
 /* Utility classes for Tailwind */
@@ -92,9 +107,26 @@ body {
 .bg-destructive { background-color: hsl(var(--destructive)); }
 .text-destructive-foreground { color: hsl(var(--destructive-foreground)); }
 .border-border { border-color: hsl(var(--border)); }
-.bg-dpa-dark-pine { background-color: var(--dpa-dark-pine); }
+/* DPA Brand Color Utilities */
 .bg-dpa-green { background-color: var(--dpa-green); }
-.bg-dpa-cyan { background-color: var(--dpa-cyan); }
+.bg-dpa-light-green { background-color: var(--dpa-light-green); }
+.bg-dpa-golden { background-color: var(--dpa-golden); }
+.bg-dpa-dark-grey { background-color: var(--dpa-dark-grey); }
+.bg-dpa-light-grey { background-color: var(--dpa-light-grey); }
+
 .text-dpa-green { color: var(--dpa-green); }
-.text-dpa-cyan { color: var(--dpa-cyan); }
+.text-dpa-light-green { color: var(--dpa-light-green); }
+.text-dpa-golden { color: var(--dpa-golden); }
+.text-dpa-dark-grey { color: var(--dpa-dark-grey); }
+.text-dpa-light-grey { color: var(--dpa-light-grey); }
+
 .border-dpa-green { border-color: var(--dpa-green); }
+.border-dpa-light-green { border-color: var(--dpa-light-green); }
+.border-dpa-golden { border-color: var(--dpa-golden); }
+.border-dpa-dark-grey { border-color: var(--dpa-dark-grey); }
+.border-dpa-light-grey { border-color: var(--dpa-light-grey); }
+
+/* Legacy compatibility */
+.bg-dpa-dark-pine { background-color: var(--dpa-dark-pine); }
+.bg-dpa-cyan { background-color: var(--dpa-cyan); }
+.text-dpa-cyan { color: var(--dpa-cyan); }

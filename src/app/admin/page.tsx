@@ -230,7 +230,7 @@ function AdminPanelContent() {
       <div className="flex items-center justify-center min-h-[50vh]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-dpa-cyan mx-auto mb-4"></div>
-          <p className="text-dpa-cyan font-orbitron">Loading Admin Panel...</p>
+          <p className="text-dpa-light-green font-raleway">Loading Admin Panel...</p>
         </div>
       </div>
     );
@@ -242,7 +242,7 @@ function AdminPanelContent() {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h1 className="font-orbitron text-3xl font-bold text-white">
+        <h1 className="font-raleway text-3xl font-bold text-white">
           Admin Panel
         </h1>
         <div className="flex items-center gap-4">
@@ -251,7 +251,7 @@ function AdminPanelContent() {
             {/* Dashboard Save Status */}
             <div className="flex items-center gap-2">
               {isSaving && (
-                <div className="flex items-center gap-2 text-dpa-cyan">
+                <div className="flex items-center gap-2 text-dpa-light-green">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-dpa-cyan"></div>
                   <span className="text-sm">Saving Dashboard...</span>
                 </div>
@@ -272,7 +272,7 @@ function AdminPanelContent() {
             {/* Budget Save Status */}
             <div className="flex items-center gap-2">
               {isBudgetSaving && (
-                <div className="flex items-center gap-2 text-dpa-cyan">
+                <div className="flex items-center gap-2 text-dpa-light-green">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-dpa-cyan"></div>
                   <span className="text-sm">Saving Budget...</span>
                 </div>
@@ -313,7 +313,7 @@ function AdminPanelContent() {
 
       {/* Revenue Settings */}
       <Card className="p-6 bg-gradient-to-br from-dpa-dark-pine to-dpa-pine-light border-dpa-green/20">
-        <h2 className="font-orbitron text-xl font-semibold text-white mb-4">
+        <h2 className="font-raleway text-xl font-semibold text-white mb-4">
           Revenue Settings
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -362,7 +362,7 @@ function AdminPanelContent() {
 
       {/* YTD Settings */}
       <Card className="p-6 bg-gradient-to-br from-dpa-dark-pine to-dpa-pine-light border-dpa-green/20">
-        <h2 className="font-orbitron text-xl font-semibold text-white mb-4">
+        <h2 className="font-raleway text-xl font-semibold text-white mb-4">
           YTD Profit & Loss
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -392,7 +392,7 @@ function AdminPanelContent() {
       {/* Outside Spending */}
       <Card className="p-6 bg-gradient-to-br from-dpa-dark-pine to-dpa-pine-light border-dpa-green/20">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="font-orbitron text-xl font-semibold text-white">
+          <h2 className="font-raleway text-xl font-semibold text-white">
             Outside Spending
           </h2>
           <Button onClick={addSpendingItem} className="bg-dpa-green hover:bg-dpa-green/80">
@@ -434,7 +434,7 @@ function AdminPanelContent() {
       {/* Goals */}
       <Card className="p-6 bg-gradient-to-br from-dpa-dark-pine to-dpa-pine-light border-dpa-green/20">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="font-orbitron text-xl font-semibold text-white">
+          <h2 className="font-raleway text-xl font-semibold text-white">
             Goals
           </h2>
           <Button onClick={addGoal} className="bg-dpa-green hover:bg-dpa-green/80">
@@ -478,14 +478,14 @@ function AdminPanelContent() {
 
       {/* Budget Administration */}
       <Card className="p-6 bg-gradient-to-br from-dpa-dark-pine to-dpa-pine-light border-orange-400/20">
-        <h2 className="font-orbitron text-xl font-semibold text-white mb-4 flex items-center gap-2">
+        <h2 className="font-raleway text-xl font-semibold text-white mb-4 flex items-center gap-2">
           <span>📊</span>
           Budget Monthly Actuals - {localBudgetData.fiscalYear}
         </h2>
         <p className="text-gray-400 text-sm mb-6">
           Enter monthly actual values to track performance against budget. Values are automatically totaled for YTD actuals.
           <br />
-          <span className="text-dpa-cyan font-semibold">Fiscal Year Calendar:</span> August 1 - July 31
+          <span className="text-dpa-light-green font-semibold">Fiscal Year Calendar:</span> August 1 - July 31
         </p>
 
         {/* Month Headers */}
@@ -498,7 +498,7 @@ function AdminPanelContent() {
 
         {/* Revenue Section */}
         <div className="mb-8">
-          <h3 className="font-orbitron text-lg text-dpa-cyan mb-4 flex items-center gap-2">
+          <h3 className="font-raleway text-lg text-dpa-light-green mb-4 flex items-center gap-2">
             <span>💰</span>
             Revenue
           </h3>
@@ -535,7 +535,7 @@ function AdminPanelContent() {
 
         {/* Expenses Section */}
         <div className="mb-8">
-          <h3 className="font-orbitron text-lg text-orange-400 mb-4 flex items-center gap-2">
+          <h3 className="font-raleway text-lg text-orange-400 mb-4 flex items-center gap-2">
             <span>📈</span>
             Operating Expenses
           </h3>
@@ -582,7 +582,7 @@ function AdminPanelContent() {
 
         {/* Financial Items Section */}
         <div>
-          <h3 className="font-orbitron text-lg text-purple-400 mb-4 flex items-center gap-2">
+          <h3 className="font-raleway text-lg text-purple-400 mb-4 flex items-center gap-2">
             <span>🏦</span>
             Financial Items
           </h3>
@@ -614,7 +614,7 @@ function AdminPanelContent() {
 
         <div className="mt-6 p-4 bg-dpa-green/10 rounded-lg border border-dpa-green/20">
           <p className="text-xs text-gray-300">
-            <span className="font-semibold text-dpa-cyan">Budget Tip:</span>
+            <span className="font-semibold text-dpa-light-green">Budget Tip:</span>
             {' '}Monthly actuals are automatically summed to calculate YTD actuals. Changes save automatically after 1 second of inactivity.
           </p>
         </div>
@@ -630,7 +630,7 @@ export default function AdminPanel() {
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-dpa-cyan mx-auto mb-4"></div>
-            <p className="text-dpa-cyan font-orbitron">Loading...</p>
+            <p className="text-dpa-light-green font-raleway">Loading...</p>
           </div>
         </div>
       }>

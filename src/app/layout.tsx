@@ -1,28 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Inter, Orbitron } from "next/font/google";
+import { Montserrat, Raleway } from "next/font/google";
 import Link from "next/link";
 import { QueryProvider } from "@/components/providers/query-provider";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const raleway = Raleway({
+  variable: "--font-raleway",
   subsets: ["latin"],
-});
-
-const inter = Inter({
-  variable: "--font-sans",
-  subsets: ["latin"],
-});
-
-const orbitron = Orbitron({
-  variable: "--font-orbitron",
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -38,35 +29,35 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${orbitron.variable} antialiased command-center-bg min-h-screen`}
+        className={`${montserrat.variable} ${raleway.variable} antialiased command-center-bg min-h-screen font-montserrat`}
       >
         <QueryProvider>
           <header className="p-4 border-b border-dpa-green/20">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-dpa-green rounded-lg flex items-center justify-center">
-                  <span className="font-orbitron font-bold text-white text-lg">DPA</span>
+                  <span className="font-raleway font-black text-white text-lg">DPA</span>
                 </div>
-                <h1 className="font-orbitron text-2xl font-bold text-white">
+                <h1 className="font-raleway text-2xl font-bold text-white">
                   Command Center
                 </h1>
               </div>
               <nav className="flex gap-4">
                 <Link 
                   href="/" 
-                  className="px-4 py-2 rounded-lg border border-dpa-green/30 text-dpa-cyan hover:bg-dpa-green/20 transition-colors font-orbitron"
+                  className="px-4 py-2 rounded-lg border border-dpa-light-green/30 text-dpa-light-green hover:bg-dpa-green/20 transition-colors font-raleway"
                 >
                   Dashboard
                 </Link>
                 <Link 
                   href="/budget" 
-                  className="px-4 py-2 rounded-lg border border-dpa-green/30 text-dpa-cyan hover:bg-dpa-green/20 transition-colors font-orbitron"
+                  className="px-4 py-2 rounded-lg border border-dpa-light-green/30 text-dpa-light-green hover:bg-dpa-green/20 transition-colors font-raleway"
                 >
                   Budget
                 </Link>
                 <Link 
                   href="/admin" 
-                  className="px-4 py-2 rounded-lg border border-dpa-green/30 text-dpa-cyan hover:bg-dpa-green/20 transition-colors font-orbitron"
+                  className="px-4 py-2 rounded-lg border border-dpa-light-green/30 text-dpa-light-green hover:bg-dpa-green/20 transition-colors font-raleway"
                 >
                   Admin
                 </Link>
