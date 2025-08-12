@@ -72,7 +72,7 @@ export default function BudgetOverviewCard({ budgetData }: BudgetOverviewCardPro
             
             <div className="w-full bg-gray-700/50 rounded-full h-3">
               <div
-                className="h-3 rounded-full bg-gradient-to-r from-dpa-cyan to-dpa-green transition-all duration-1000 ease-out"
+                className="h-3 rounded-full bg-dpa-green-readable transition-all duration-1000 ease-out"
                 style={{ width: `${Math.min(revenueProgress, 100)}%` }}
               ></div>
             </div>

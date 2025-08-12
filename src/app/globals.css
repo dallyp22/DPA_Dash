@@ -119,6 +119,11 @@ body {
 .bg-dpa-dark-grey { background-color: var(--dpa-dark-grey); }
 .bg-dpa-light-grey { background-color: var(--dpa-light-grey); }
 
+/* Readable background colors */
+.bg-dpa-green-readable { background-color: var(--dpa-green-text); }
+.bg-dpa-light-green-readable { background-color: var(--dpa-light-green-text); }
+.bg-dpa-golden-readable { background-color: var(--dpa-golden-text); }
+
 .text-dpa-green { color: var(--dpa-green); }
 .text-dpa-light-green { color: var(--dpa-light-green); }
 .text-dpa-golden { color: var(--dpa-golden); }
@@ -135,6 +140,11 @@ body {
 .border-dpa-golden { border-color: var(--dpa-golden); }
 .border-dpa-dark-grey { border-color: var(--dpa-dark-grey); }
 .border-dpa-light-grey { border-color: var(--dpa-light-grey); }
+
+/* Readable border colors */
+.border-dpa-green-readable { border-color: var(--dpa-green-text); }
+.border-dpa-light-green-readable { border-color: var(--dpa-light-green-text); }
+.border-dpa-golden-readable { border-color: var(--dpa-golden-text); }
 
 /* Legacy compatibility */
 .bg-dpa-dark-pine { background-color: var(--dpa-dark-pine); }

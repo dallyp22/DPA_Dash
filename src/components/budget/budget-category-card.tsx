@@ -37,9 +37,9 @@ const lineItemLabels: Record<string, string> = {
 
 export default function BudgetCategoryCard({ title, data, type, icon }: BudgetCategoryCardProps) {
   const isRevenue = type === 'revenue';
-  const primaryColor = isRevenue ? 'dpa-cyan' : 'orange-400';
-  const bgColor = isRevenue ? 'bg-dpa-cyan/10' : 'bg-orange-400/10';
-  const borderColor = isRevenue ? 'border-dpa-cyan/30' : 'border-orange-400/30';
+  const primaryColor = isRevenue ? 'dpa-green-readable' : 'orange-400';
+  const bgColor = isRevenue ? 'bg-dpa-green-readable/10' : 'bg-orange-400/10';
+  const borderColor = isRevenue ? 'border-dpa-green-readable/30' : 'border-orange-400/30';
   
   // Calculate totals
   const totalBudget = Object.values(data).reduce((sum, item) => sum + item.fy2526Budget, 0);
@@ -81,7 +81,7 @@ export default function BudgetCategoryCard({ title, data, type, icon }: BudgetCa
           <div
             className={`h-2 rounded-full transition-all duration-1000 ease-out ${
               isRevenue 
-                ? 'bg-gradient-to-r from-dpa-cyan to-dpa-green' 
+                ? 'bg-dpa-green-readable' 
                 : 'bg-gradient-to-r from-orange-400 to-red-400'
             }`}
             style={{ width: `${Math.min(totalProgress, 100)}%` }}
@@ -131,7 +131,7 @@ export default function BudgetCategoryCard({ title, data, type, icon }: BudgetCa
                     <div
                       className={`h-1.5 rounded-full transition-all duration-1000 ease-out ${
                         isRevenue 
-                          ? 'bg-dpa-cyan' 
+                          ? 'bg-dpa-green-readable' 
                           : 'bg-orange-400'
                       }`}
                       style={{ width: `${Math.min(progress, 100)}%` }}

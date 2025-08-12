@@ -42,7 +42,7 @@ export default function YtdCard({ ytd }: YtdCardProps) {
       <div className="mb-6">
         <div className="flex justify-between items-center mb-3">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-dpa-cyan"></div>
+            <div className="w-3 h-3 rounded-full bg-dpa-green-readable"></div>
             <span className="text-gray-300 text-sm font-medium">Revenue</span>
           </div>
           <span className="text-dpa-cyan font-bold text-xl">
@@ -53,7 +53,7 @@ export default function YtdCard({ ytd }: YtdCardProps) {
         {/* Revenue Bar */}
         <div className="w-full bg-gray-700/50 rounded-full h-2 mb-2">
           <div 
-            className="h-2 rounded-full bg-dpa-cyan transition-all duration-1000 ease-out"
+            className="h-2 rounded-full bg-dpa-green-readable transition-all duration-1000 ease-out"
             style={{ width: '100%' }}
           ></div>
         </div>

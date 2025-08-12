@@ -18,10 +18,10 @@ const statusConfig = {
     progress: 0
   },
   "in-progress": {
-    color: "bg-dpa-cyan",
-    bgColor: "bg-dpa-cyan/10", 
-    borderColor: "border-dpa-cyan/30",
-    textColor: "text-dpa-cyan",
+    color: "bg-dpa-green-readable",
+    bgColor: "bg-dpa-green-readable/10", 
+    borderColor: "border-dpa-green-readable/30",
+    textColor: "text-dpa-green-readable",
     label: "In Progress",
     icon: "🚀",
     progress: 50
@@ -67,7 +67,7 @@ export default function GoalsCard({ goals }: GoalsCardProps) {
         </div>
         <div className="w-full bg-gray-700/50 rounded-full h-2">
           <div
-            className="h-2 rounded-full bg-gradient-to-r from-dpa-cyan to-dpa-green transition-all duration-1000 ease-out"
+            className="h-2 rounded-full bg-dpa-green-readable transition-all duration-1000 ease-out"
             style={{ width: `${overallProgress}%` }}
           ></div>
         </div>

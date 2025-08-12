@@ -83,7 +83,7 @@ export default function RevenueCard({ target, current, milestones }: RevenueCard
           <div className="h-3 rounded-full bg-gray-700/50 relative overflow-hidden">
             {/* Current progress */}
             <div
-              className="h-full rounded-full bg-gradient-to-r from-dpa-cyan via-dpa-green to-emerald-400 transition-all duration-1000 ease-out shadow-lg"
+              className="h-full rounded-full bg-dpa-green-readable transition-all duration-1000 ease-out shadow-lg"
               style={{ width: `${Math.min(progress, 100)}%` }}
             />
           </div>
