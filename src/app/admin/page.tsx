@@ -2,7 +2,7 @@
 
 import { Suspense, useState, useCallback, useEffect, useRef } from "react";
 import { useDashboard, useUpdateDashboard, DashboardData } from "@/hooks/use-dashboard";
-import { useBudget, useUpdateBudget, BudgetData } from "@/hooks/use-budget";
+import { useBudget, useUpdateBudget, BudgetData, LineItem } from "@/hooks/use-budget";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -188,7 +188,7 @@ function AdminPanelContent() {
     
     const categoryData = localBudgetData[category];
     if (typeof categoryData === 'object' && categoryData !== null && lineItem in categoryData) {
-      const currentLineItem = (categoryData as any)[lineItem];
+      const currentLineItem = (categoryData as Record<string, LineItem>)[lineItem];
       const updatedMonthlyActuals = [...currentLineItem.monthlyActuals];
       updatedMonthlyActuals[monthIndex] = value;
       
@@ -489,7 +489,7 @@ function AdminPanelContent() {
         {/* Month Headers */}
         <div className="grid grid-cols-13 gap-2 mb-4 text-xs text-gray-400">
           <div className="col-span-1 font-medium">Line Item</div>
-          {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map((month, index) => (
+          {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map((month) => (
             <div key={month} className="text-center font-medium">{month}</div>
           ))}
         </div>
