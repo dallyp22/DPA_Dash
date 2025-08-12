@@ -10,7 +10,7 @@ const initialBudgetData = {
       fy2425Actual: 3000748,
       fy2526Budget: 3900000,
       fy2526Actuals: 0,
-      monthlyActuals: Array(12).fill(0) // Jan-Dec
+      monthlyActuals: Array(12).fill(0) // Aug-Jul fiscal year
     },
     buyersPremium: {
       fy2324Actual: 5634392,

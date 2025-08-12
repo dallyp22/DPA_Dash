@@ -6,7 +6,7 @@ export interface LineItem {
   fy2425Actual: number;
   fy2526Budget: number;
   fy2526Actuals: number;
-  monthlyActuals: number[]; // 12 months
+  monthlyActuals: number[]; // 12 months (Aug-Jul fiscal year)
 }
 
 export interface BudgetData {

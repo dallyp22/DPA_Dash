@@ -484,12 +484,14 @@ function AdminPanelContent() {
         </h2>
         <p className="text-gray-400 text-sm mb-6">
           Enter monthly actual values to track performance against budget. Values are automatically totaled for YTD actuals.
+          <br />
+          <span className="text-dpa-cyan font-semibold">Fiscal Year Calendar:</span> August 1 - July 31
         </p>
 
         {/* Month Headers */}
         <div className="grid grid-cols-13 gap-2 mb-4 text-xs text-gray-400">
           <div className="col-span-1 font-medium">Line Item</div>
-          {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map((month) => (
+          {['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'].map((month) => (
             <div key={month} className="text-center font-medium">{month}</div>
           ))}
         </div>
