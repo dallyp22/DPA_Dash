@@ -59,6 +59,12 @@ export default function RootLayout({
                   Dashboard
                 </Link>
                 <Link 
+                  href="/budget" 
+                  className="px-4 py-2 rounded-lg border border-dpa-green/30 text-dpa-cyan hover:bg-dpa-green/20 transition-colors font-orbitron"
+                >
+                  Budget
+                </Link>
+                <Link 
                   href="/admin" 
                   className="px-4 py-2 rounded-lg border border-dpa-green/30 text-dpa-cyan hover:bg-dpa-green/20 transition-colors font-orbitron"
                 >
