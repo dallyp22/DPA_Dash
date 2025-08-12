@@ -30,7 +30,7 @@ const statusConfig = {
     color: "bg-dpa-green",
     bgColor: "bg-dpa-green/10",
     borderColor: "border-dpa-green/30", 
-    textColor: "text-dpa-green",
+    textColor: "text-dpa-green-readable",
     label: "Completed",
     icon: "✅",
     progress: 100
@@ -127,7 +127,7 @@ export default function GoalsCard({ goals }: GoalsCardProps) {
           <div className="grid grid-cols-3 gap-4 text-center">
             <div>
               <p className="text-gray-400 text-xs">Completed</p>
-              <p className="text-dpa-green font-bold text-lg">{completedGoals}</p>
+              <p className="text-dpa-green-readable font-bold text-lg">{completedGoals}</p>
             </div>
             <div>
               <p className="text-gray-400 text-xs">In Progress</p>

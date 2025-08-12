@@ -230,7 +230,7 @@ function AdminPanelContent() {
       <div className="flex items-center justify-center min-h-[50vh]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-dpa-cyan mx-auto mb-4"></div>
-          <p className="text-dpa-light-green font-raleway">Loading Admin Panel...</p>
+          <p className="text-dpa-green-readable-readable font-raleway">Loading Admin Panel...</p>
         </div>
       </div>
     );
@@ -251,7 +251,7 @@ function AdminPanelContent() {
             {/* Dashboard Save Status */}
             <div className="flex items-center gap-2">
               {isSaving && (
-                <div className="flex items-center gap-2 text-dpa-light-green">
+                <div className="flex items-center gap-2 text-dpa-green-readable-readable">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-dpa-cyan"></div>
                   <span className="text-sm">Saving Dashboard...</span>
                 </div>
@@ -263,7 +263,7 @@ function AdminPanelContent() {
                 </div>
               )}
               {lastSaved && !saveTimeoutRef.current && !isSaving && (
-                <p className="text-dpa-green text-sm">
+                <p className="text-dpa-green-readable text-sm">
                   ✓ Dashboard: {lastSaved.toLocaleTimeString()}
                 </p>
               )}
@@ -272,7 +272,7 @@ function AdminPanelContent() {
             {/* Budget Save Status */}
             <div className="flex items-center gap-2">
               {isBudgetSaving && (
-                <div className="flex items-center gap-2 text-dpa-light-green">
+                <div className="flex items-center gap-2 text-dpa-green-readable-readable">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-dpa-cyan"></div>
                   <span className="text-sm">Saving Budget...</span>
                 </div>
@@ -284,7 +284,7 @@ function AdminPanelContent() {
                 </div>
               )}
               {budgetLastSaved && !budgetSaveTimeoutRef.current && !isBudgetSaving && (
-                <p className="text-dpa-green text-sm">
+                <p className="text-dpa-green-readable text-sm">
                   ✓ Budget: {budgetLastSaved.toLocaleTimeString()}
                 </p>
               )}
@@ -485,7 +485,7 @@ function AdminPanelContent() {
         <p className="text-gray-400 text-sm mb-6">
           Enter monthly actual values to track performance against budget. Values are automatically totaled for YTD actuals.
           <br />
-          <span className="text-dpa-light-green font-semibold">Fiscal Year Calendar:</span> August 1 - July 31
+          <span className="text-dpa-green-readable-readable font-semibold">Fiscal Year Calendar:</span> August 1 - July 31
         </p>
 
         {/* Month Headers */}
@@ -498,7 +498,7 @@ function AdminPanelContent() {
 
         {/* Revenue Section */}
         <div className="mb-8">
-          <h3 className="font-raleway text-lg text-dpa-light-green mb-4 flex items-center gap-2">
+          <h3 className="font-raleway text-lg text-dpa-green-readable-readable mb-4 flex items-center gap-2">
             <span>💰</span>
             Revenue
           </h3>
@@ -614,7 +614,7 @@ function AdminPanelContent() {
 
         <div className="mt-6 p-4 bg-dpa-green/10 rounded-lg border border-dpa-green/20">
           <p className="text-xs text-gray-300">
-            <span className="font-semibold text-dpa-light-green">Budget Tip:</span>
+            <span className="font-semibold text-dpa-green-readable-readable">Budget Tip:</span>
             {' '}Monthly actuals are automatically summed to calculate YTD actuals. Changes save automatically after 1 second of inactivity.
           </p>
         </div>
@@ -630,7 +630,7 @@ export default function AdminPanel() {
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-dpa-cyan mx-auto mb-4"></div>
-            <p className="text-dpa-light-green font-raleway">Loading...</p>
+            <p className="text-dpa-green-readable-readable font-raleway">Loading...</p>
           </div>
         </div>
       }>

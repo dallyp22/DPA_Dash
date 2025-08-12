@@ -17,7 +17,7 @@ export default function YtdCard({ ytd }: YtdCardProps) {
 
   const statusConfig = {
     excellent: { color: 'text-emerald-400', bgColor: 'bg-emerald-400/10', icon: '📈' },
-    good: { color: 'text-dpa-green', bgColor: 'bg-dpa-green/10', icon: '✅' },
+    good: { color: 'text-dpa-green-readable', bgColor: 'bg-dpa-green/10', icon: '✅' },
     poor: { color: 'text-yellow-400', bgColor: 'bg-yellow-400/10', icon: '⚠️' },
     negative: { color: 'text-red-400', bgColor: 'bg-red-400/10', icon: '📉' }
   };
@@ -92,7 +92,7 @@ export default function YtdCard({ ytd }: YtdCardProps) {
             <div className={`w-3 h-3 rounded-full ${profit >= 0 ? 'bg-dpa-green' : 'bg-red-400'}`}></div>
             <span className="text-white font-orbitron font-semibold">Net Profit</span>
           </div>
-          <span className={`font-bold text-2xl ${profit >= 0 ? 'text-dpa-green' : 'text-red-400'}`}>
+          <span className={`font-bold text-2xl ${profit >= 0 ? 'text-dpa-green-readable' : 'text-red-400'}`}>
             ${Math.abs(profit).toLocaleString()}
             {profit < 0 && <span className="text-red-400 ml-1">loss</span>}
           </span>
@@ -108,7 +108,7 @@ export default function YtdCard({ ytd }: YtdCardProps) {
           </div>
           <div className="text-center">
             <p className="text-gray-400 text-xs mb-1">Efficiency</p>
-            <p className={`font-bold text-lg ${expenseRatio <= 60 ? 'text-dpa-green' : expenseRatio <= 80 ? 'text-yellow-400' : 'text-red-400'}`}>
+            <p className={`font-bold text-lg ${expenseRatio <= 60 ? 'text-dpa-green-readable' : expenseRatio <= 80 ? 'text-yellow-400' : 'text-red-400'}`}>
               {expenseRatio <= 60 ? 'High' : expenseRatio <= 80 ? 'Medium' : 'Low'}
             </p>
           </div>

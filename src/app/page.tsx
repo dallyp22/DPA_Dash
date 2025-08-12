@@ -134,7 +134,7 @@ export default function Home() {
             {/* Status Indicator */}
             <div className="flex items-center gap-2 px-3 py-2 bg-dpa-green/10 rounded-lg border border-dpa-green/30">
               <div className="w-2 h-2 bg-dpa-green rounded-full animate-pulse"></div>
-              <span className="text-dpa-green text-xs font-semibold">LIVE</span>
+              <span className="text-dpa-green-readable text-xs font-semibold">LIVE</span>
             </div>
           </div>
         </div>
@@ -187,7 +187,7 @@ export default function Home() {
             </div>
             <div>
               <p className="text-gray-400 text-xs">Profit Margin</p>
-              <p className="text-dpa-green font-bold">
+              <p className="text-dpa-green-readable font-bold">
                 {data.ytd.revenue > 0 ? (((data.ytd.revenue - data.ytd.expenses) / data.ytd.revenue) * 100).toFixed(1) : 0}%
               </p>
             </div>

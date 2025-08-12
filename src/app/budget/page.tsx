@@ -133,7 +133,7 @@ export default function BudgetPage() {
             {/* Status Indicator */}
             <div className="flex items-center gap-2 px-3 py-2 bg-dpa-green/10 rounded-lg border border-dpa-green/30">
               <div className="w-2 h-2 bg-dpa-green rounded-full animate-pulse"></div>
-              <span className="text-dpa-green text-xs font-semibold">LIVE</span>
+              <span className="text-dpa-green-readable text-xs font-semibold">LIVE</span>
             </div>
           </div>
         </div>

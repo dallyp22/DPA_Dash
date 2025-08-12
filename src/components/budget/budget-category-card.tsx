@@ -92,7 +92,7 @@ export default function BudgetCategoryCard({ title, data, type, icon }: BudgetCa
             Variance: 
             <span className={`ml-1 font-semibold ${
               (isRevenue && totalVariance >= 0) || (!isRevenue && totalVariance <= 0) 
-                ? 'text-dpa-green' 
+                ? 'text-dpa-green-readable' 
                 : 'text-red-400'
             }`}>
               {totalVariance >= 0 ? '+' : ''}${totalVariance.toLocaleString()}
@@ -149,7 +149,7 @@ export default function BudgetCategoryCard({ title, data, type, icon }: BudgetCa
                   <span className="text-gray-400">Variance: </span>
                   <span className={`font-semibold ${
                     (isRevenue && variance >= 0) || (!isRevenue && variance <= 0) 
-                      ? 'text-dpa-green' 
+                      ? 'text-dpa-green-readable' 
                       : 'text-red-400'
                   }`}>
                     {variance >= 0 ? '+' : ''}${variance.toLocaleString()}
@@ -180,7 +180,7 @@ export default function BudgetCategoryCard({ title, data, type, icon }: BudgetCa
             <p className="text-gray-400 text-xs">Achievement</p>
             <p className={`font-bold text-sm ${
               (isRevenue && totalProgress >= 100) || (!isRevenue && totalProgress <= 100) 
-                ? 'text-dpa-green' 
+                ? 'text-dpa-green-readable' 
                 : 'text-yellow-400'
             }`}>
               {totalProgress.toFixed(1)}%

@@ -44,7 +44,7 @@ export default function BudgetOverviewCard({ budgetData }: BudgetOverviewCardPro
         </h2>
         <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-dpa-green/10 border border-dpa-green/30">
           <span className="text-lg">📈</span>
-          <span className="text-dpa-green text-sm font-semibold">
+          <span className="text-dpa-green-readable text-sm font-semibold">
             {netVariance >= 0 ? 'On Track' : 'Below Target'}
           </span>
         </div>
@@ -79,7 +79,7 @@ export default function BudgetOverviewCard({ budgetData }: BudgetOverviewCardPro
             
             <div className="flex justify-between items-center text-xs">
               <span className="text-gray-400">{revenueProgress.toFixed(1)}% of budget</span>
-              <span className={`font-semibold ${revenueVariance >= 0 ? 'text-dpa-green' : 'text-red-400'}`}>
+              <span className={`font-semibold ${revenueVariance >= 0 ? 'text-dpa-green-readable' : 'text-red-400'}`}>
                 {revenueVariance >= 0 ? '+' : ''}${revenueVariance.toLocaleString()}
               </span>
             </div>
@@ -114,7 +114,7 @@ export default function BudgetOverviewCard({ budgetData }: BudgetOverviewCardPro
             
             <div className="flex justify-between items-center text-xs">
               <span className="text-gray-400">{expenseProgress.toFixed(1)}% of budget</span>
-              <span className={`font-semibold ${expensesVariance <= 0 ? 'text-dpa-green' : 'text-red-400'}`}>
+              <span className={`font-semibold ${expensesVariance <= 0 ? 'text-dpa-green-readable' : 'text-red-400'}`}>
                 {expensesVariance >= 0 ? '+' : ''}${expensesVariance.toLocaleString()}
               </span>
             </div>
@@ -123,12 +123,12 @@ export default function BudgetOverviewCard({ budgetData }: BudgetOverviewCardPro
 
         {/* Net Earnings Section */}
         <div className="space-y-4">
-          <h3 className="font-orbitron text-lg text-dpa-green">Net Earnings</h3>
+          <h3 className="font-orbitron text-lg text-dpa-green-readable">Net Earnings</h3>
           
           <div className="space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-gray-300 text-sm">Budget</span>
-              <span className="text-dpa-green font-bold">
+              <span className="text-dpa-green-readable font-bold">
                 ${netEarningsBudget.toLocaleString()}
               </span>
             </div>
@@ -144,7 +144,7 @@ export default function BudgetOverviewCard({ budgetData }: BudgetOverviewCardPro
             <div className="p-3 rounded-lg bg-dpa-green/10 border border-dpa-green/30">
               <div className="flex justify-between items-center">
                 <span className="text-gray-300 text-sm">Variance</span>
-                <span className={`font-bold ${netVariance >= 0 ? 'text-dpa-green' : 'text-red-400'}`}>
+                <span className={`font-bold ${netVariance >= 0 ? 'text-dpa-green-readable' : 'text-red-400'}`}>
                   {netVariance >= 0 ? '+' : ''}${netVariance.toLocaleString()}
                 </span>
               </div>
@@ -164,13 +164,13 @@ export default function BudgetOverviewCard({ budgetData }: BudgetOverviewCardPro
           </div>
           <div>
             <p className="text-gray-400 text-xs">Revenue Achievement</p>
-            <p className="text-dpa-green font-bold">
+            <p className="text-dpa-green-readable font-bold">
               {revenueProgress.toFixed(1)}%
             </p>
           </div>
           <div>
             <p className="text-gray-400 text-xs">Expense Control</p>
-            <p className={`font-bold ${expenseProgress <= 100 ? 'text-dpa-green' : 'text-red-400'}`}>
+            <p className={`font-bold ${expenseProgress <= 100 ? 'text-dpa-green-readable' : 'text-red-400'}`}>
               {expenseProgress.toFixed(1)}%
             </p>
           </div>

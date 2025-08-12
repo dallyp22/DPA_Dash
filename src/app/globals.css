@@ -2,11 +2,16 @@
 
 :root {
   /* DPA Auctions Official Brand Colors */
-  --dpa-green: #0E430A;        /* DPA Green #0E430A */
-  --dpa-light-green: #567042;  /* Light Green #567042 */
+  --dpa-green: #0E430A;        /* DPA Green #0E430A - for backgrounds */
+  --dpa-light-green: #567042;  /* Light Green #567042 - for backgrounds */
   --dpa-golden: #AE8B28;       /* Golden #AE8B28 */
   --dpa-dark-grey: #9BA3A9;    /* Dark Grey #9BA3A9 */
   --dpa-light-grey: #4C4F53;   /* Light Grey #4C4F53 */
+  
+  /* Readable text variants for dark backgrounds */
+  --dpa-green-text: #4ade80;   /* Bright green for text readability */
+  --dpa-light-green-text: #86efac; /* Lighter green for secondary text */
+  --dpa-golden-text: #fbbf24;  /* Brighter golden for text */
   
   /* Legacy colors for backward compatibility */
   --dpa-dark-pine: #0E430A;
@@ -119,6 +124,11 @@ body {
 .text-dpa-golden { color: var(--dpa-golden); }
 .text-dpa-dark-grey { color: var(--dpa-dark-grey); }
 .text-dpa-light-grey { color: var(--dpa-light-grey); }
+
+/* Readable text colors for dark backgrounds */
+.text-dpa-green-readable { color: var(--dpa-green-text); }
+.text-dpa-light-green-readable { color: var(--dpa-light-green-text); }
+.text-dpa-golden-readable { color: var(--dpa-golden-text); }
 
 .border-dpa-green { border-color: var(--dpa-green); }
 .border-dpa-light-green { border-color: var(--dpa-light-green); }

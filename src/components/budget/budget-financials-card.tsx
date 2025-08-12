@@ -68,7 +68,7 @@ export default function BudgetFinancialsCard({ financials }: BudgetFinancialsCar
             <div className="p-3 rounded-lg bg-red-400/10 border border-red-400/30">
               <div className="flex justify-between items-center">
                 <span className="text-gray-300 text-sm">Variance</span>
-                <span className={`font-bold ${interestVariance <= 0 ? 'text-dpa-green' : 'text-red-400'}`}>
+                <span className={`font-bold ${interestVariance <= 0 ? 'text-dpa-green-readable' : 'text-red-400'}`}>
                   {interestVariance >= 0 ? '+' : ''}${interestVariance.toLocaleString()}
                 </span>
               </div>
@@ -112,7 +112,7 @@ export default function BudgetFinancialsCard({ financials }: BudgetFinancialsCar
             <div className="p-3 rounded-lg bg-yellow-400/10 border border-yellow-400/30">
               <div className="flex justify-between items-center">
                 <span className="text-gray-300 text-sm">Variance</span>
-                <span className={`font-bold ${taxesVariance <= 0 ? 'text-dpa-green' : 'text-red-400'}`}>
+                <span className={`font-bold ${taxesVariance <= 0 ? 'text-dpa-green-readable' : 'text-red-400'}`}>
                   {taxesVariance >= 0 ? '+' : ''}${taxesVariance.toLocaleString()}
                 </span>
               </div>
@@ -147,7 +147,7 @@ export default function BudgetFinancialsCard({ financials }: BudgetFinancialsCar
           <div className="text-center">
             <p className="text-gray-400 text-xs mb-1">Net Variance</p>
             <p className={`font-bold text-lg ${
-              (interestVariance + taxesVariance) <= 0 ? 'text-dpa-green' : 'text-red-400'
+              (interestVariance + taxesVariance) <= 0 ? 'text-dpa-green-readable' : 'text-red-400'
             }`}>
               {(interestVariance + taxesVariance) >= 0 ? '+' : ''}${(interestVariance + taxesVariance).toLocaleString()}
             </p>
