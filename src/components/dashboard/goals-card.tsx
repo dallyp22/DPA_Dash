@@ -50,7 +50,7 @@ export default function GoalsCard({ goals }: GoalsCardProps) {
           Goals & Objectives
         </h2>
         <div className="text-right">
-          <p className="text-dpa-cyan font-bold text-xl">
+          <p className="text-dpa-green-readable font-bold text-xl">
             {completedGoals}/{totalGoals}
           </p>
           <p className="text-gray-400 text-xs">Completed</p>
@@ -61,7 +61,7 @@ export default function GoalsCard({ goals }: GoalsCardProps) {
       <div className="mb-6">
         <div className="flex justify-between items-center mb-2">
           <span className="text-gray-300 text-sm">Overall Progress</span>
-          <span className="text-dpa-cyan font-semibold text-sm">
+          <span className="text-dpa-green-readable font-semibold text-sm">
             {overallProgress.toFixed(0)}%
           </span>
         </div>
@@ -131,7 +131,7 @@ export default function GoalsCard({ goals }: GoalsCardProps) {
             </div>
             <div>
               <p className="text-gray-400 text-xs">In Progress</p>
-              <p className="text-dpa-cyan font-bold text-lg">{inProgressGoals}</p>
+              <p className="text-dpa-green-readable font-bold text-lg">{inProgressGoals}</p>
             </div>
             <div>
               <p className="text-gray-400 text-xs">Pending</p>

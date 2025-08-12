@@ -45,19 +45,19 @@ export default function RootLayout({
               <nav className="flex gap-4">
                 <Link 
                   href="/" 
-                  className="px-4 py-2 rounded-lg border border-dpa-light-green/30 text-dpa-green-readable hover:bg-dpa-green/20 transition-colors font-raleway"
+                  className="px-4 py-2 rounded-lg border border-dpa-green-readable/30 text-dpa-green-readable hover:bg-dpa-green/20 transition-colors font-raleway"
                 >
                   Dashboard
                 </Link>
                 <Link 
                   href="/budget" 
-                  className="px-4 py-2 rounded-lg border border-dpa-light-green/30 text-dpa-green-readable hover:bg-dpa-green/20 transition-colors font-raleway"
+                  className="px-4 py-2 rounded-lg border border-dpa-green-readable/30 text-dpa-green-readable hover:bg-dpa-green/20 transition-colors font-raleway"
                 >
                   Budget
                 </Link>
                 <Link 
                   href="/admin" 
-                  className="px-4 py-2 rounded-lg border border-dpa-light-green/30 text-dpa-green-readable hover:bg-dpa-green/20 transition-colors font-raleway"
+                  className="px-4 py-2 rounded-lg border border-dpa-green-readable/30 text-dpa-green-readable hover:bg-dpa-green/20 transition-colors font-raleway"
                 >
                   Admin
                 </Link>

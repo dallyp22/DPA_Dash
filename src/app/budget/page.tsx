@@ -43,7 +43,7 @@ export default function BudgetPage() {
               <div className="w-8 h-8 bg-dpa-green rounded-full animate-pulse"></div>
             </div>
           </div>
-          <p className="text-dpa-cyan font-orbitron text-lg">Loading Budget Data...</p>
+          <p className="text-dpa-green-readable font-raleway text-lg">Loading Budget Data...</p>
           <p className="text-gray-400 text-sm mt-2">Analyzing financial performance</p>
         </div>
       </div>
@@ -55,11 +55,11 @@ export default function BudgetPage() {
       <div className="flex items-center justify-center min-h-[70vh]">
         <div className="text-center max-w-md">
           <div className="text-6xl mb-4">⚠️</div>
-          <p className="text-red-400 font-orbitron text-xl mb-2">Budget System Alert</p>
+          <p className="text-red-400 font-raleway text-xl mb-2">Budget System Alert</p>
           <p className="text-gray-400 mb-4">Unable to connect to budget database</p>
           <button 
             onClick={handleRefresh}
-            className="px-6 py-2 bg-dpa-green hover:bg-dpa-green/80 text-white rounded-lg font-orbitron transition-colors"
+            className="px-6 py-2 bg-dpa-green hover:bg-dpa-green/80 text-white rounded-lg font-raleway transition-colors"
           >
             Retry Connection
           </button>
@@ -73,7 +73,7 @@ export default function BudgetPage() {
       <div className="flex items-center justify-center min-h-[70vh]">
         <div className="text-center">
           <div className="text-6xl mb-4">📊</div>
-          <p className="text-gray-400 font-orbitron">No budget data available</p>
+          <p className="text-gray-400 font-raleway">No budget data available</p>
         </div>
       </div>
     );
@@ -107,7 +107,7 @@ export default function BudgetPage() {
       <div className="p-6 pb-0">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
-            <h1 className="font-orbitron text-2xl font-bold text-white mb-2">
+            <h1 className="font-raleway text-2xl font-bold text-white mb-2">
               Financial Command Center
             </h1>
             <p className="text-gray-400 text-sm">
@@ -120,7 +120,7 @@ export default function BudgetPage() {
             <button
               onClick={handleRefresh}
               disabled={isRefreshing}
-              className={`px-4 py-2 rounded-lg border border-dpa-green/30 text-dpa-cyan hover:bg-dpa-green/20 transition-colors font-orbitron text-sm flex items-center gap-2 ${
+              className={`px-4 py-2 rounded-lg border border-dpa-green/30 text-dpa-green-readable hover:bg-dpa-green/20 transition-colors font-raleway text-sm flex items-center gap-2 ${
                 isRefreshing ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >

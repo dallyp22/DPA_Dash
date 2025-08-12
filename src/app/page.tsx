@@ -44,7 +44,7 @@ export default function Home() {
               <div className="w-8 h-8 bg-dpa-green rounded-full animate-pulse"></div>
             </div>
           </div>
-          <p className="text-dpa-cyan font-orbitron text-lg">Initializing Command Center...</p>
+          <p className="text-dpa-green-readable font-raleway text-lg">Initializing Command Center...</p>
           <p className="text-gray-400 text-sm mt-2">Loading real-time data</p>
         </div>
       </div>
@@ -56,11 +56,11 @@ export default function Home() {
       <div className="flex items-center justify-center min-h-[70vh]">
         <div className="text-center max-w-md">
           <div className="text-6xl mb-4">⚠️</div>
-          <p className="text-red-400 font-orbitron text-xl mb-2">System Alert</p>
+          <p className="text-red-400 font-raleway text-xl mb-2">System Alert</p>
           <p className="text-gray-400 mb-4">Unable to establish connection to command center</p>
           <button 
             onClick={handleRefresh}
-            className="px-6 py-2 bg-dpa-green hover:bg-dpa-green/80 text-white rounded-lg font-orbitron transition-colors"
+            className="px-6 py-2 bg-dpa-green hover:bg-dpa-green/80 text-white rounded-lg font-raleway transition-colors"
           >
             Retry Connection
           </button>
@@ -74,7 +74,7 @@ export default function Home() {
       <div className="flex items-center justify-center min-h-[70vh]">
         <div className="text-center">
           <div className="text-6xl mb-4">📊</div>
-          <p className="text-gray-400 font-orbitron">No data streams available</p>
+          <p className="text-gray-400 font-raleway">No data streams available</p>
         </div>
       </div>
     );
@@ -108,7 +108,7 @@ export default function Home() {
       <div className="p-6 pb-0">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
-            <h1 className="font-orbitron text-2xl font-bold text-white mb-2">
+            <h1 className="font-raleway text-2xl font-bold text-white mb-2">
               Mission Control Dashboard
             </h1>
             <p className="text-gray-400 text-sm">
@@ -121,7 +121,7 @@ export default function Home() {
             <button
               onClick={handleRefresh}
               disabled={isRefreshing}
-              className={`px-4 py-2 rounded-lg border border-dpa-green/30 text-dpa-cyan hover:bg-dpa-green/20 transition-colors font-orbitron text-sm flex items-center gap-2 ${
+              className={`px-4 py-2 rounded-lg border border-dpa-green/30 text-dpa-green-readable hover:bg-dpa-green/20 transition-colors font-raleway text-sm flex items-center gap-2 ${
                 isRefreshing ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >
@@ -181,7 +181,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div>
               <p className="text-gray-400 text-xs">Revenue Progress</p>
-              <p className="text-dpa-cyan font-bold">
+              <p className="text-dpa-green-readable font-bold">
                 {((data.revenueCurrent / data.revenueTarget) * 100).toFixed(1)}%
               </p>
             </div>
@@ -193,7 +193,7 @@ export default function Home() {
             </div>
             <div>
               <p className="text-gray-400 text-xs">Goals Complete</p>
-              <p className="text-dpa-cyan font-bold">
+              <p className="text-dpa-green-readable font-bold">
                 {data.goals.filter(g => g.status === 'completed').length}/{data.goals.length}
               </p>
             </div>

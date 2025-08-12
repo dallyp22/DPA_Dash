@@ -24,7 +24,7 @@ export default function RevenueCard({ target, current, milestones }: RevenueCard
           <h2 className="font-orbitron text-lg font-semibold text-white mb-1">
             Revenue Target
           </h2>
-          <p className="text-dpa-cyan font-bold text-2xl">
+          <p className="text-dpa-green-readable font-bold text-2xl">
             ${target.toLocaleString()}
           </p>
         </div>
@@ -73,7 +73,7 @@ export default function RevenueCard({ target, current, milestones }: RevenueCard
       <div className="mb-6">
         <div className="flex justify-between items-center mb-2">
           <span className="text-gray-300 text-sm">Current Revenue</span>
-          <span className="text-dpa-cyan font-bold text-lg">
+          <span className="text-dpa-green-readable font-bold text-lg">
             ${current.toLocaleString()}
           </span>
         </div>

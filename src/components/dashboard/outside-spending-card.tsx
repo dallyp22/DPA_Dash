@@ -26,7 +26,7 @@ export default function OutsideSpendingCard({ items }: OutsideSpendingCardProps)
           Outside Spending
         </h2>
         <div className="text-right">
-          <p className="text-dpa-cyan font-bold text-xl">
+          <p className="text-dpa-green-readable font-bold text-xl">
             ${total.toLocaleString()}
           </p>
           <p className="text-gray-400 text-xs">Total Spent</p>
@@ -47,7 +47,7 @@ export default function OutsideSpendingCard({ items }: OutsideSpendingCardProps)
                   <span className="text-gray-300 font-medium">{item.label}</span>
                 </div>
                 <div className="text-right">
-                  <span className="text-dpa-cyan font-semibold">
+                  <span className="text-dpa-green-readable font-semibold">
                     ${item.amount.toLocaleString()}
                   </span>
                   <span className="text-gray-400 text-sm ml-2">
@@ -86,7 +86,7 @@ export default function OutsideSpendingCard({ items }: OutsideSpendingCardProps)
         {items.length > 0 && (
           <div className="mt-3 p-3 bg-dpa-green/10 rounded-lg border border-dpa-green/20">
             <p className="text-xs text-gray-300">
-              <span className="font-semibold text-dpa-cyan">
+              <span className="font-semibold text-dpa-green-readable">
                 {items.reduce((max, item) => item.amount > max.amount ? item : max, items[0]).label}
               </span>
               {' '}is the largest expense category

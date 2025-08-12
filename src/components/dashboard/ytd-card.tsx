@@ -45,7 +45,7 @@ export default function YtdCard({ ytd }: YtdCardProps) {
             <div className="w-3 h-3 rounded-full bg-dpa-green-readable"></div>
             <span className="text-gray-300 text-sm font-medium">Revenue</span>
           </div>
-          <span className="text-dpa-cyan font-bold text-xl">
+          <span className="text-dpa-green-readable font-bold text-xl">
             ${ytd.revenue.toLocaleString()}
           </span>
         </div>

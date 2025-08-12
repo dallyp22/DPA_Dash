@@ -53,12 +53,12 @@ export default function BudgetOverviewCard({ budgetData }: BudgetOverviewCardPro
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Revenue Section */}
         <div className="space-y-4">
-          <h3 className="font-orbitron text-lg text-dpa-cyan">Revenue</h3>
+          <h3 className="font-orbitron text-lg text-dpa-green-readable">Revenue</h3>
           
           <div className="space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-gray-300 text-sm">Budget</span>
-              <span className="text-dpa-cyan font-bold">
+              <span className="text-dpa-green-readable font-bold">
                 ${totalRevenueBudget.toLocaleString()}
               </span>
             </div>
@@ -158,7 +158,7 @@ export default function BudgetOverviewCard({ budgetData }: BudgetOverviewCardPro
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           <div>
             <p className="text-gray-400 text-xs">Operating Margin</p>
-            <p className="text-dpa-cyan font-bold">
+            <p className="text-dpa-green-readable font-bold">
               {totalRevenueBudget > 0 ? ((netOperatingIncomeBudget / totalRevenueBudget) * 100).toFixed(1) : 0}%
             </p>
           </div>
@@ -176,7 +176,7 @@ export default function BudgetOverviewCard({ budgetData }: BudgetOverviewCardPro
           </div>
           <div>
             <p className="text-gray-400 text-xs">Net Margin</p>
-            <p className="text-dpa-cyan font-bold">
+            <p className="text-dpa-green-readable font-bold">
               {totalRevenueBudget > 0 ? ((netEarningsBudget / totalRevenueBudget) * 100).toFixed(1) : 0}%
             </p>
           </div>
